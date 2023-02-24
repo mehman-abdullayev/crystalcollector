@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Crystall Collector</title>
+    <style>
+    	.btn { cursor: pointer; }
+    </style>
+  </head>
+  <body>
+    <div style = 'text-align: center; margin-bottom: 100px;'>
+    <h1>Crystall Collector</h1>
+    	<p>Every crystal below has its own weight. Try to click on crystals to match the target point.</p><br>
+    	<h4 id = 'target-score'>Target Score</h4>
+    	<h4 id = 'your-score'>Your Score 0</h4><br><br>
+    	<h4>Select a Crystal From Below:</h4>
+    </div>
+	
+    <button class = 'btn'><img width = '300px' src="./images/black.jpg" /></button>
+    <button class = 'btn'><img width = '300px' src="./images/image.jpg" /></button>
+    <button class = 'btn'><img width = '300px' src="./images/quarts.jpg" /></button>
+    <button class = 'btn'><img width = '300px' src="./images/tiger.png" /></button>
+      
+    <div style = 'text-align: center; margin: 100px auto 100px auto;'>
+    	<h4 id = 'win-count'>Win Count 0</h4>
+    	<h4 id = 'loss-count'>Loss Count 0</h4>
+    </div>
+    <script>
+    	let buttons = document.querySelectorAll('.btn'), targetScore = document.getElementById('target-score'), yourScore = document.getElementById('your-score'), winCount = document.getElementById('win-count'), lossCount = document.getElementById('loss-count'), score = 0, target = 0, wins = 0, losses = 0;
+
+		function reset() {
+			target = Math.floor((Math.random() * 100) + 10);
+			targetScore.innerText = 'Target Score ' + target;
+
+			for (let button of buttons) { 
+				button.setAttribute('data-value', Math.floor((Math.random() * 10) + 1).toString()); 
+			}
+		}
+
+		reset();
+
+		buttons.forEach(e => e.addEventListener('click', event => {
+			score += parseInt(e.getAttribute('data-value'));
+			if (score < target) {
+				yourScore.innerText = 'Your Score ' + score;
+			} else if (score === target) {
+				yourScore.innerText = 'Your Score 0';
+				wins++;
+				winCount.innerText = 'Win Count ' + wins;
+				score = 0; reset();
+			} else if (score > target) {
+				yourScore.innerText = 'Your Score 0';
+				losses++;
+				lossCount.innerText = 'Loss Count ' + losses;
+				score = 0; reset();
+			}
+		}));
+	
+    </script> 
+  </body>
+</html>
